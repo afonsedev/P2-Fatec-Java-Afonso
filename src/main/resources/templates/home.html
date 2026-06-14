@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Bem-vindo, <span th:text="${nome}"></span>!</h1>
+
+    <a href="/ninjas/novo"><button>Cadastrar novo ninja</button></a>
+
+    <h2>Ninjas cadastrados</h2>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Rank</th>
+                <th>Afinidade</th>
+                <th>Status</th>
+                <th>Vila</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ninja : ${ninjas}">
+                <td th:text="${ninja.nome}"></td>
+                <td th:text="${ninja.idade}"></td>
+                <td th:text="${ninja.rankNinja}"></td>
+                <td th:text="${ninja.afinidadeElemental}"></td>
+                <td th:text="${ninja.statusNinja}"></td>
+                <td th:text="${ninja.vilaNome}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(ninjas)}">
+                <td colspan="6">Nenhum ninja cadastrado.</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

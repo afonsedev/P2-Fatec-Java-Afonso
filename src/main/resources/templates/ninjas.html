@@ -2,37 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Ninjas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninjas - Ninja System</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Lista de Ninjas</h1>
+    <div class="container">
+        <h1>Ninjas</h1>
+        <nav class="nav">
+            <a href="/home?nome=Usuario">Home</a>
+            <a href="/ninjas/novo">Novo Ninja</a>
+            <a href="/missoes">Missoes</a>
+        </nav>
 
-    <a href="/ninjas/novo">Cadastrar novo ninja</a>
-
-    <table border="1" cellpadding="8" cellspacing="0" style="margin-top: 16px;">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Idade</th>
-                <th>Rank</th>
-                <th>Afinidade</th>
-                <th>Status</th>
-                <th>Vila</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="ninja : ${ninjas}">
-                <td th:text="${ninja.nome}"></td>
-                <td th:text="${ninja.idade}"></td>
-                <td th:text="${ninja.rankNinja}"></td>
-                <td th:text="${ninja.afinidadeElemental}"></td>
-                <td th:text="${ninja.statusNinja}"></td>
-                <td th:text="${ninja.vilaNome}"></td>
-            </tr>
-            <tr th:if="${#lists.isEmpty(ninjas)}">
-                <td colspan="6">Nenhum ninja cadastrado.</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="cards-grid" th:if="${!#lists.isEmpty(ninjas)}">
+            <div class="battle-card" th:each="ninja : ${ninjas}">
+                <div class="card-header">
+                    <h3 th:text="${ninja.nome}"></h3>
+                    <span class="card-rank" th:text="${ninja.rankNinja}"></span>
+                </div>
+                <div class="card-body">
+                    <div class="card-stat">
+                        <span class="stat-label">Idade</span>
+                        <span class="stat-value" th:text="${ninja.idade}"></span>
+                    </div>
+                    <div class="card-stat">
+                        <span class="stat-label">Afinidade</span>
+                        <span class="stat-value" th:text="${ninja.afinidadeElemental}"></span>
+                    </div>
+                    <div class="card-stat">
+                        <span class="stat-label">Vila</span>
+                        <span class="stat-value" th:text="${ninja.vilaNome}"></span>
+                    </div>
+                    <div class="card-stat">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value">
+                            <span class="status-badge" th:classappend="'status-' + ${#strings.toLowerCase(ninja.statusNinja)}" th:text="${ninja.statusNinja}"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{/ninjas/editar/{id}(id=${ninja.id})}" class="btn">Editar</a>
+                    <form th:action="@{/ninjas/deletar/{id}(id=${ninja.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar este ninja?')">Deletar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p class="empty-state" th:if="${#lists.isEmpty(ninjas)}">Nenhum ninja cadastrado.</p>
+    </div>
 </body>
 </html>

@@ -37,7 +37,8 @@ public class NinjaService {
                 ninja.setRankNinja(rs.getString("rank_ninja"));
                 ninja.setAfinidadeElemental(rs.getString("afinidade_elemental"));
                 ninja.setStatusNinja(rs.getString("status_ninja"));
-                ninja.setDataCadastro(rs.getTimestamp("data_cadastro").toLocalDateTime());
+                Timestamp ts = rs.getTimestamp("data_cadastro");
+                ninja.setDataCadastro(ts != null ? ts.toLocalDateTime() : null);
                 ninja.setVilaId(rs.getLong("vila_id"));
                 ninja.setUsuarioId(rs.getLong("usuario_id"));
                 ninja.setVilaNome(rs.getString("vila_nome"));
@@ -49,6 +50,40 @@ public class NinjaService {
         }
 
         return ninjas;
+    }
+
+    public Ninja buscarPorId(Long id) {
+        String sql = "SELECT n.id, n.nome, n.idade, n.rank_ninja, n.afinidade_elemental, "
+                   + "n.status_ninja, n.data_cadastro, n.vila_id, n.usuario_id, v.nome AS vila_nome "
+                   + "FROM ninja n JOIN vila v ON n.vila_id = v.id WHERE n.id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Ninja ninja = new Ninja();
+                ninja.setId(rs.getLong("id"));
+                ninja.setNome(rs.getString("nome"));
+                ninja.setIdade(rs.getInt("idade"));
+                ninja.setRankNinja(rs.getString("rank_ninja"));
+                ninja.setAfinidadeElemental(rs.getString("afinidade_elemental"));
+                ninja.setStatusNinja(rs.getString("status_ninja"));
+                Timestamp ts = rs.getTimestamp("data_cadastro");
+                ninja.setDataCadastro(ts != null ? ts.toLocalDateTime() : null);
+                ninja.setVilaId(rs.getLong("vila_id"));
+                ninja.setUsuarioId(rs.getLong("usuario_id"));
+                ninja.setVilaNome(rs.getString("vila_nome"));
+                return ninja;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public void criar(Ninja ninja) {
@@ -65,6 +100,41 @@ public class NinjaService {
             stmt.setString(5, ninja.getStatusNinja());
             stmt.setLong(6, ninja.getVilaId());
             stmt.setLong(7, ninja.getUsuarioId());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void atualizar(Ninja ninja) {
+        String sql = "UPDATE ninja SET nome = ?, idade = ?, rank_ninja = ?, afinidade_elemental = ?, "
+                   + "status_ninja = ?, vila_id = ? WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, ninja.getNome());
+            stmt.setInt(2, ninja.getIdade());
+            stmt.setString(3, ninja.getRankNinja());
+            stmt.setString(4, ninja.getAfinidadeElemental());
+            stmt.setString(5, ninja.getStatusNinja());
+            stmt.setLong(6, ninja.getVilaId());
+            stmt.setLong(7, ninja.getId());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletar(Long id) {
+        String sql = "DELETE FROM ninja WHERE id = ?";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setLong(1, id);
             stmt.executeUpdate();
 
         } catch (SQLException e) {

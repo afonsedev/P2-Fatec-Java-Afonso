@@ -1,0 +1,279 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;
+    color: #eee;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #f5a623;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.nav a, .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #16213e;
+    color: #f5a623;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1px solid #f5a623;
+    font-weight: bold;
+    transition: all 0.2s;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav a:hover, .btn:hover {
+    background: #f5a623;
+    color: #1a1a2e;
+}
+
+.btn-danger {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.btn-danger:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.btn-success {
+    border-color: #2ecc71;
+    color: #2ecc71;
+}
+
+.btn-success:hover {
+    background: #2ecc71;
+    color: #fff;
+}
+
+.btn-warning {
+    border-color: #e67e22;
+    color: #e67e22;
+}
+
+.btn-warning:hover {
+    background: #e67e22;
+    color: #fff;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 16px 0;
+}
+
+/* Battle Card */
+.battle-card {
+    background: linear-gradient(145deg, #16213e, #0f3460);
+    border: 2px solid #f5a623;
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+.battle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(245, 166, 35, 0.3);
+}
+
+.card-header {
+    background: linear-gradient(90deg, #f5a623, #e67e22);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h3 {
+    color: #1a1a2e;
+    font-size: 18px;
+    margin: 0;
+}
+
+.card-rank {
+    background: #1a1a2e;
+    color: #f5a623;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.card-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(245, 166, 35, 0.2);
+}
+
+.card-stat:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: #999;
+    font-size: 13px;
+}
+
+.stat-value {
+    color: #eee;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.card-footer {
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(245, 166, 35, 0.2);
+}
+
+.card-footer .btn {
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-ativo, .status-em_andamento {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+}
+
+.status-inativo, .status-fracasso {
+    background: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.status-sucesso {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid #3498db;
+}
+
+/* Forms */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, #16213e, #0f3460);
+    border: 2px solid #f5a623;
+    border-radius: 12px;
+    padding: 32px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #f5a623;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #eee;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #f5a623;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-actions {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.error-msg {
+    background: rgba(231, 76, 60, 0.2);
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 48px;
+    color: #666;
+    font-size: 16px;
+}
+
+/* Login page */
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+}
+
+.login-container h1 {
+    margin-bottom: 32px;
+}

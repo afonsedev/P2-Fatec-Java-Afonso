@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Missao - Ninja System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Nova Missao</h1>
+        <div class="form-container">
+            <p th:if="${erro}" class="error-msg" th:text="${erro}"></p>
+            <form action="/missoes/nova" method="post">
+                <div class="form-group">
+                    <label for="ninjaId">Ninja</label>
+                    <select id="ninjaId" name="ninjaId" required>
+                        <option th:each="ninja : ${ninjas}" th:value="${ninja.id}" th:text="${ninja.nome + ' (' + ninja.rankNinja + ')'}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descricao</label>
+                    <textarea id="descricao" name="descricao" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rankMissao">Rank da Missao</label>
+                    <select id="rankMissao" name="rankMissao" required>
+                        <option value="GENIN">Genin</option>
+                        <option value="CHUNIN">Chunin</option>
+                        <option value="JONIN">Jonin</option>
+                        <option value="KAGE">Kage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dataInicio">Data de Inicio</label>
+                    <input type="datetime-local" id="dataInicio" name="dataInicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="dataPrevisaoFim">Previsao de Fim</label>
+                    <input type="datetime-local" id="dataPrevisaoFim" name="dataPrevisaoFim" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Criar Missao</button>
+                    <a href="/missoes" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

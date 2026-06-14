@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ninja - Ninja System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Ninja</h1>
+        <div class="form-container">
+            <form th:action="@{/ninjas/editar/{id}(id=${ninja.id})}" method="post">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" th:value="${ninja.nome}" required>
+                </div>
+                <div class="form-group">
+                    <label for="idade">Idade</label>
+                    <input type="number" id="idade" name="idade" th:value="${ninja.idade}" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="rankNinja">Rank</label>
+                    <select id="rankNinja" name="rankNinja" required>
+                        <option value="GENIN" th:selected="${ninja.rankNinja == 'GENIN'}">Genin</option>
+                        <option value="CHUNIN" th:selected="${ninja.rankNinja == 'CHUNIN'}">Chunin</option>
+                        <option value="JONIN" th:selected="${ninja.rankNinja == 'JONIN'}">Jonin</option>
+                        <option value="KAGE" th:selected="${ninja.rankNinja == 'KAGE'}">Kage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="afinidadeElemental">Afinidade Elemental</label>
+                    <select id="afinidadeElemental" name="afinidadeElemental" required>
+                        <option value="FOGO" th:selected="${ninja.afinidadeElemental == 'FOGO'}">Fogo</option>
+                        <option value="AGUA" th:selected="${ninja.afinidadeElemental == 'AGUA'}">Agua</option>
+                        <option value="TERRA" th:selected="${ninja.afinidadeElemental == 'TERRA'}">Terra</option>
+                        <option value="VENTO" th:selected="${ninja.afinidadeElemental == 'VENTO'}">Vento</option>
+                        <option value="RAIO" th:selected="${ninja.afinidadeElemental == 'RAIO'}">Raio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="statusNinja">Status</label>
+                    <select id="statusNinja" name="statusNinja" required>
+                        <option value="ATIVO" th:selected="${ninja.statusNinja == 'ATIVO'}">Ativo</option>
+                        <option value="INATIVO" th:selected="${ninja.statusNinja == 'INATIVO'}">Inativo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vilaId">Vila</label>
+                    <select id="vilaId" name="vilaId" required>
+                        <option th:each="vila : ${vilas}" th:value="${vila.id}" th:text="${vila.nome}" th:selected="${vila.id == ninja.vilaId}"></option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn">Salvar</button>
+                    <a href="/ninjas" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -2,46 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Ninja</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Ninja - Ninja System</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>Cadastrar Ninja</h1>
-
-    <form action="/ninjas/novo" method="post">
-        <label>Nome:</label><br>
-        <input type="text" name="nome" required><br><br>
-
-        <label>Idade:</label><br>
-        <input type="number" name="idade" min="0" required><br><br>
-
-        <label>Rank:</label><br>
-        <select name="rankNinja" required>
-            <option value="GENIN">Genin</option>
-            <option value="CHUNIN">Chunin</option>
-            <option value="JONIN">Jonin</option>
-            <option value="KAGE">Kage</option>
-        </select><br><br>
-
-        <label>Afinidade Elemental:</label><br>
-        <select name="afinidadeElemental" required>
-            <option value="FOGO">Fogo</option>
-            <option value="AGUA">Água</option>
-            <option value="TERRA">Terra</option>
-            <option value="VENTO">Vento</option>
-            <option value="RAIO">Raio</option>
-        </select><br><br>
-
-        <label>Vila:</label><br>
-        <select name="vilaId" required>
-            <option th:each="vila : ${vilas}" th:value="${vila.id}" th:text="${vila.nome}"></option>
-        </select><br><br>
-
-        <input type="hidden" name="usuarioId" value="1">
-
-        <button type="submit">Cadastrar</button>
-    </form>
-
-    <br>
-    <a href="/ninjas">Voltar para lista</a>
+    <div class="container">
+        <h1>Cadastrar Ninja</h1>
+        <div class="form-container">
+            <form action="/ninjas/novo" method="post">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="idade">Idade</label>
+                    <input type="number" id="idade" name="idade" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="rankNinja">Rank</label>
+                    <select id="rankNinja" name="rankNinja" required>
+                        <option value="GENIN">Genin</option>
+                        <option value="CHUNIN">Chunin</option>
+                        <option value="JONIN">Jonin</option>
+                        <option value="KAGE">Kage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="afinidadeElemental">Afinidade Elemental</label>
+                    <select id="afinidadeElemental" name="afinidadeElemental" required>
+                        <option value="FOGO">Fogo</option>
+                        <option value="AGUA">Agua</option>
+                        <option value="TERRA">Terra</option>
+                        <option value="VENTO">Vento</option>
+                        <option value="RAIO">Raio</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vilaId">Vila</label>
+                    <select id="vilaId" name="vilaId" required>
+                        <option th:each="vila : ${vilas}" th:value="${vila.id}" th:text="${vila.nome}"></option>
+                    </select>
+                </div>
+                <input type="hidden" name="usuarioId" value="1">
+                <div class="form-actions">
+                    <button type="submit" class="btn">Cadastrar</button>
+                    <a href="/ninjas" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

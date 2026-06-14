@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missoes - Ninja System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Missoes</h1>
+        <nav class="nav">
+            <a href="/ninjas">Ninjas</a>
+            <a href="/missoes/nova">Nova Missao</a>
+        </nav>
+
+        <div class="cards-grid" th:if="${!#lists.isEmpty(missoes)}">
+            <div class="battle-card" th:each="missao : ${missoes}">
+                <div class="card-header">
+                    <h3 th:text="${missao.ninjaNome}"></h3>
+                    <span class="card-rank" th:text="${missao.rankMissao}"></span>
+                </div>
+                <div class="card-body">
+                    <div class="card-stat">
+                        <span class="stat-label">Descricao</span>
+                        <span class="stat-value" th:text="${missao.descricao}"></span>
+                    </div>
+                    <div class="card-stat">
+                        <span class="stat-label">Inicio</span>
+                        <span class="stat-value" th:text="${#temporals.format(missao.dataInicio, 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                    <div class="card-stat">
+                        <span class="stat-label">Previsao Fim</span>
+                        <span class="stat-value" th:text="${#temporals.format(missao.dataPrevisaoFim, 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                    <div class="card-stat" th:if="${missao.dataFim != null}">
+                        <span class="stat-label">Finalizada em</span>
+                        <span class="stat-value" th:text="${#temporals.format(missao.dataFim, 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                    <div class="card-stat">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value">
+                            <span class="status-badge" th:classappend="'status-' + ${#strings.toLowerCase(missao.status)}" th:text="${missao.status}"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-footer" th:if="${missao.status == 'EM_ANDAMENTO'}">
+                    <a th:href="@{/missoes/editar/{id}(id=${missao.id})}" class="btn">Editar</a>
+                    <form th:action="@{/missoes/finalizar/{id}(id=${missao.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="resultado" value="SUCESSO">
+                        <button type="submit" class="btn btn-success">Sucesso</button>
+                    </form>
+                    <form th:action="@{/missoes/finalizar/{id}(id=${missao.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="resultado" value="FRACASSO">
+                        <button type="submit" class="btn btn-danger">Fracasso</button>
+                    </form>
+                    <form th:action="@{/missoes/deletar/{id}(id=${missao.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-warning" onclick="return confirm('Tem certeza?')">Deletar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p class="empty-state" th:if="${#lists.isEmpty(missoes)}">Nenhuma missao cadastrada.</p>
+    </div>
+</body>
+</html>
